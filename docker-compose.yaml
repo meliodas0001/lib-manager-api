@@ -1,0 +1,22 @@
+version: '3'
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: libmanager
+      POSTGRES_PASSWORD: libmanager312
+      POSTGRES_DB: libmanager
+    ports:
+      - '5432:5432'
+  app:
+    network_mode: host
+    build: .
+    restart: always
+    container_name: libmanager
+    volumes:
+      - .:/usr/app
+
+volumes:
+  pgdata:
+    driver: local
