@@ -20,17 +20,18 @@ export class PrismaBooksRepository implements BooksRepository {
       },
     });
   }
-  findName(bookName: string): Promise<BooksDTO[]> {
-    const bookFinder = this.prismaService.books.findMany({
+  async findName(bookName: string): Promise<BooksDTO[]> {
+    const bookFinder = await this.prismaService.books.findMany({
       where: {
         title: bookName,
       },
+      take: 10,
     });
 
     return bookFinder;
   }
-  findId(bookId: string): Promise<BooksDTO> {
-    const bookFinder = this.prismaService.books.findUnique({
+  async findId(bookId: string): Promise<BooksDTO> {
+    const bookFinder = await this.prismaService.books.findUnique({
       where: {
         id: bookId,
       },
@@ -44,7 +45,7 @@ export class PrismaBooksRepository implements BooksRepository {
 
     if (!id) throw new Error('Missing book Id');
 
-    this.prismaService.books.update({
+    await this.prismaService.books.update({
       where: {
         id,
       },
@@ -52,6 +53,22 @@ export class PrismaBooksRepository implements BooksRepository {
         author,
         available,
         title,
+      },
+    });
+  }
+
+  async getAllBooks(): Promise<BooksDTO[]> {
+    const books = await this.prismaService.books.findMany({
+      take: 10,
+    });
+
+    return books;
+  }
+
+  async deleteBook(bookId: string): Promise<void> {
+    await this.prismaService.books.delete({
+      where: {
+        id: bookId,
       },
     });
   }
