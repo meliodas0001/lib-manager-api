@@ -14,7 +14,7 @@
       "@app/*": ["./src/app/*"],
       "@infra/*": ["./src/infra/*"],
       "@useCases/*": ["./src/infra/useCases/*"],
-      "@repositories/*": ["./src/infra/Database/prisma/repositories/*"],
+      "@repositories/*": ["src/infra/database/prisma/repositories/*"],
       "@test/*": ["./test/*"]
     },
     "incremental": true,
