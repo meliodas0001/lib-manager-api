@@ -1,9 +1,12 @@
+import { Injectable } from '@nestjs/common';
+
 import {
   LoansDTO,
   LoansRepository,
 } from '@app/repositories/Loans/loansRepository';
 import { PrismaService } from '../../prisma.service';
 
+@Injectable()
 export class PrismaLoansRepository implements LoansRepository {
   constructor(private prismaService: PrismaService) {}
 

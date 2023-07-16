@@ -3,7 +3,7 @@ import {
   BooksDTO,
 } from '@app/repositories/Books/booksRepository';
 import { PrismaService } from '../../prisma.service';
-import { Injectable } from '@nestjs/common';
+import { Body, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class PrismaBooksRepository implements BooksRepository {
@@ -37,5 +37,22 @@ export class PrismaBooksRepository implements BooksRepository {
     });
 
     return bookFinder;
+  }
+
+  async updateBook(book: BooksDTO): Promise<void> {
+    const { author, available, title, id } = book;
+
+    if (!id) throw new Error('Missing book Id');
+
+    this.prismaService.books.update({
+      where: {
+        id,
+      },
+      data: {
+        author,
+        available,
+        title,
+      },
+    });
   }
 }
