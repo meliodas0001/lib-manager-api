@@ -9,3 +9,25 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Books {
+  id        String  @id @unique @default(uuid())
+  title     String
+  author    String
+  available Boolean
+}
+
+model Users {
+  id       String @id @unique @default(uuid())
+  name     String
+  email    String @unique
+  password String
+}
+
+model Loans {
+  id               String    @id @unique @default(uuid())
+  id_book          String    @unique
+  id_user          String
+  loans_date       DateTime
+  loans_devolution DateTime?
+}
