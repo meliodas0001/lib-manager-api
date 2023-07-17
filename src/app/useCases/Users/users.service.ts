@@ -5,6 +5,7 @@ import {
 import {
   ConflictException,
   Injectable,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
@@ -34,10 +35,15 @@ export class UsersService {
   async findUserById(id: string): Promise<UserDTO> {
     const finder = await this.usersRepository.getUserById(id);
 
+    if (!finder) throw new NotFoundException('User not found');
+
     return finder;
   }
 
   async updateUser(user: UserDTO, id: string) {
+    const finder = await this.usersRepository.getUserById(id);
+    if (!finder) throw new NotFoundException('User not found');
+
     let password = await bcrypt.hash(user.password, 10);
 
     user = { ...user, id, password };

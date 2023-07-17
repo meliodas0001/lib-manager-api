@@ -80,6 +80,17 @@ export class BooksController {
     await this.booksService.updateBook(book);
   }
 
+  @ApiOperation({ summary: 'Updates a book by ID.' })
+  @ApiBody({ type: BookBodyIdDTO })
+  @ApiResponse({
+    status: 200,
+    description: 'The book has been successfully updated.',
+  })
+  @Put()
+  async updateBook(@Body() body: BookBodyIdDTO) {
+    await this.booksService.updateBook(body);
+  }
+
   @ApiOperation({ summary: 'Deletes a book by ID.' })
   @ApiParam({ name: 'id', description: 'ID of the book', type: 'string' })
   @ApiResponse({

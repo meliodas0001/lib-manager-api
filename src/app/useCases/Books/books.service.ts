@@ -29,6 +29,8 @@ export class BooksService {
   async getBookId(id: string): Promise<BooksDTO> {
     const book = await this.booksRepository.findId(id);
 
+    if (!book) throw new NotFoundException('Book not found');
+
     return book;
   }
 
