@@ -7,7 +7,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { IBooksDTO } from '../dtos/IBooksDTO';
+import { BookBodyDTO, BookBodyIdDTO } from '../dtos/IBooksDTO';
 import { BooksService } from '@app/useCases/Books/books.service';
 
 interface BookParamDTO {
@@ -34,12 +34,15 @@ export class BooksController {
   }
 
   @Post()
-  async createBook(@Body() body: IBooksDTO) {
+  async createBook(@Body() body: BookBodyDTO) {
     await this.booksService.createBook(body);
   }
 
   @Put(':id')
-  async updateBookById(@Body() body: IBooksDTO, @Param() bookId: BookParamDTO) {
+  async updateBookById(
+    @Body() body: BookBodyDTO,
+    @Param() bookId: BookParamDTO,
+  ) {
     const book = { ...body, ...bookId };
     console.log(book);
 
@@ -47,7 +50,7 @@ export class BooksController {
   }
 
   @Put()
-  async updateBook(@Body() body: IBooksDTO) {
+  async updateBook(@Body() body: BookBodyIdDTO) {
     await this.booksService.updateBook(body);
   }
 

@@ -8,4 +8,5 @@ export interface UserDTO {
 export abstract class UserRepository {
   abstract create(user: UserDTO): Promise<void>;
   abstract findByEmail(email: string): Promise<UserDTO>;
+  abstract getAllUsers(): Promise<UserDTO[]>;
 }

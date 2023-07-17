@@ -29,4 +29,12 @@ export class PrismaUserRepository implements UserRepository {
 
     return user;
   }
+
+  async getAllUsers(): Promise<UserDTO[]> {
+    const users = await this.prismaService.users.findMany({
+      take: 10,
+    });
+
+    return users;
+  }
 }
