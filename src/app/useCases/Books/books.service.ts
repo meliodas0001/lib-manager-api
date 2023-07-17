@@ -2,7 +2,7 @@ import {
   BooksRepository,
   BooksDTO,
 } from '@app/repositories/Books/booksRepository';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class BooksService {
@@ -15,7 +15,7 @@ export class BooksService {
   async updateBook(book: BooksDTO): Promise<void> {
     const findBook = await this.booksRepository.findId(book.id);
 
-    if (!findBook) throw new UnauthorizedException('Book not found');
+    if (!findBook) throw new NotFoundException('Book not found');
 
     await this.booksRepository.updateBook(book);
   }
@@ -26,7 +26,7 @@ export class BooksService {
     return books;
   }
 
-  async getBook(id: string): Promise<BooksDTO> {
+  async getBookId(id: string): Promise<BooksDTO> {
     const book = await this.booksRepository.findId(id);
 
     return book;
@@ -35,7 +35,7 @@ export class BooksService {
   async deleteBook(id: string): Promise<void> {
     const findBook = await this.booksRepository.findId(id);
 
-    if (!findBook) throw new UnauthorizedException('Book not found');
+    if (!findBook) throw new NotFoundException('Book not found');
 
     await this.booksRepository.deleteBook(id);
   }

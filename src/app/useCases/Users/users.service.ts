@@ -2,7 +2,11 @@ import {
   UserDTO,
   UserRepository,
 } from '@app/repositories/Users/userRepository';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -19,7 +23,7 @@ export class UsersService {
     let { email, password } = user;
     const finder = await this.usersRepository.findByEmail(email);
 
-    if (finder) throw new UnauthorizedException('Account already exist');
+    if (finder) throw new ConflictException('Account already exist');
 
     password = await bcrypt.hash(password, 10);
     user = { ...user, password };
