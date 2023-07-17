@@ -26,3 +26,8 @@ export class UserBodyIdDTO {
   @IsNotEmpty()
   password: string;
 }
+
+export class UserIdParam {
+  @IsUUID()
+  id: string;
+}

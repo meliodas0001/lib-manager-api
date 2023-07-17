@@ -26,4 +26,22 @@ export class UsersService {
 
     await this.usersRepository.create(user);
   }
+
+  async findUserById(id: string): Promise<UserDTO> {
+    const finder = await this.usersRepository.getUserById(id);
+
+    return finder;
+  }
+
+  async updateUser(user: UserDTO, id: string) {
+    let password = await bcrypt.hash(user.password, 10);
+
+    user = { ...user, id, password };
+
+    await this.usersRepository.updateUser(user);
+  }
+
+  async deleteUser(id: string) {
+    await this.usersRepository.deleteUser(id);
+  }
 }
