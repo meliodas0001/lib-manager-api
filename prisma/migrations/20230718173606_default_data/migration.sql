@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Loans" ALTER COLUMN "loans_date" SET DEFAULT CURRENT_TIMESTAMP;

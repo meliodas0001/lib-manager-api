@@ -23,9 +23,10 @@ export class UserController {
     type: [UserResponseDTO],
   })
   @Get()
-  async getAllUsers(): Promise<UserResponseDTO[]> {
+  async getAllUsers() {
     const users = await this.userService.getAllUsers();
-    return users.map(({ id, name, email }) => ({ id, name, email }));
+
+    return users;
   }
 
   @ApiOperation({ summary: 'Retrieves a user by ID.' })

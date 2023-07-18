@@ -22,12 +22,16 @@ model Users {
   name     String
   email    String @unique
   password String
+
+  Loans Loans[]
 }
 
 model Loans {
   id               String    @id @unique @default(uuid())
   id_book          String    @unique
   id_user          String
-  loans_date       DateTime
+  loans_date       DateTime  @default(now())
   loans_devolution DateTime?
+
+  Users Users @relation(fields: [id_user], references: [id])
 }
